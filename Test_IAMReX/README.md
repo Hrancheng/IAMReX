@@ -4,7 +4,7 @@ SPDX-FileCopyrightText: 2025 Shuai He<hswind53@gmail.com>
 SPDX-License-Identifier: BSD-3-Clause
 -->
 
-Test_IAMReX is a custom set of Python scripts designed to check the completeness of the code and verify the correctness of the results it produces. We provided some test cases, including lidDrivenCanvity, RSV, DraftingKissingTumbling, FlowPastCylinder, FlowPastSphere and RayleighTaylor. These tests cover various aspects and involve multiple modules. Additionally, you can follow the provided examples to create tests for yourself.
+Test_IAMReX is a custom set of Python scripts designed to check the completeness of the code and verify the correctness of the results it produces. We provided some test cases, including LidDrivenCavity, RSV, DraftingKissingTumbling, FlowPastCylinder, FlowPastSphere and RayleighTaylor. These tests cover various aspects and involve multiple modules. Additionally, you can follow the provided examples to create tests for yourself.
 
 Meanwhile, with the help of GitHub Actions, we have set up a CI pipeline to automatically run and validate these tests, ensuring continuous integration and testing of the codebase.
 
@@ -22,9 +22,9 @@ Test Working Directory: xxx/IAMReX/Tutorials/RayleighTaylor_LS
 test_RayleighTaylor_LS succeed
 ```
 
-If you want to add a new test, here are only two thing you need to do. 
+If you want to add a new test, here are only two things you need to do.
 
-1. Define the test function as follow. A test is defined here to check the compilation and execution of the Rayleigh-Taylor-related code. The working_diry is a relative path to test_IAMReX.py. It is used to locate and execute the necessary files for testing.
+1. Define the test function as follows. A test is defined here to check the compilation and execution of the Rayleigh-Taylor-related code. The working_dir is a relative path to test_IAMReX.py. It is used to locate and execute the necessary files for testing.
 
     ```python
     def test_RayleighTaylor(working_dir, print_output):
@@ -51,6 +51,4 @@ If you want to add a new test, here are only two thing you need to do.
 
 NOTE: 
 
-For github action, mpi is only supported 2 cores, GPU is not supported.
-
-
+For GitHub Actions, MPI is only supported on 2 cores, and GPUs are not supported.
