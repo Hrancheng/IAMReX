@@ -11,7 +11,7 @@ This script provides the functionality to **rotate geometries**, and rotating ge
 
 example
 ```bash
-python main.py --inputs inputs.3d.flow_past_sphere --gemotry test_cylinder.txt --angle -45 --body-frame
+python main.py --inputs inputs.3d.flow_past_sphere --geometry test_cylinder.txt --angle -45 --body-frame
 ```
 
 The command-line arguments are as follows: 
