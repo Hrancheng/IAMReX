@@ -2,7 +2,7 @@ name: CleanUpCache
 
 on:
   workflow_run:
-    workflows: [GCC,CUDA,HIP,SYCL,test_IAMReX]
+    workflows: [test_IAMReX]
     types:
       - completed
 
