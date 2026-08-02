@@ -291,3 +291,37 @@ Fix bug in multilevel velocity sync. Misc code cleanup.
 12/1/22
 Allow BDS for velocity advection (but still not in computing MAC velocities). Note this changes behavior for advection_scheme=BDS option, which before only used BDS for scalars and used Godunov for velocity.
 Fix norm calculation in Tutorials/TaylorGreen/benchmarks. Minor clean up.
+
+--------------------------------------------------------------------------------
+The entries above are inherited from IAMR. From v1.0 onward this file tracks
+IAMReX releases. Per-release details, including the full list of merged pull
+requests and contributors, are on the GitHub releases page:
+https://github.com/ruohai0925/IAMReX/releases
+--------------------------------------------------------------------------------
+
+11/13/25
+Release v1.0 (November, 2025)
+First tagged IAMReX release.
+Parallel Lagrangian marker support for the diffused immersed boundary method.
+RKPM (Reproducing Kernel Particle Method) support.
+Updates to the Adaptive Collision Time Model (ACTM) and its API.
+Sphinx documentation for IAMReX.
+CI pipeline and the Test_IAMReX test runner, covering both CPU and GPU.
+JOSS paper.
+License headers and REUSE compliance.
+
+8/2/26
+Release v1.1 (August, 2026)
+Level set support for ellipsoidal geometries, in both the serial and parallel
+  Lagrangian marker paths.
+RKPM force spreading fixes: removed an incorrect Vcell factor from the Eulerian
+  force spreading, corrected an unsymmetrical weight coefficient, and fixed the
+  non-zero CT issue with a grid alignment fix and a verification script.
+Fixed FP32 compilation issues on GPUs.
+New Tools/multiFabConverter for exporting plotfile data to .npy.
+Tools/RKPM_weight is now driven by an inputs file rather than hard-coded
+  parameters.
+New flow past ellipsoid tutorial (Tutorials/Jang_E2830Re03p65).
+CI test matrix reduced from 9 cases to 3 for faster runs; codespell and code
+  style fixes.
+JOSS paper and documentation updates.
