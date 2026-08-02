@@ -214,7 +214,7 @@ def modified_window_function(S_I, lagrangian_point, d_I, delta, eta, theta, V_la
 
         integral += modified_w
 
-    # print(f"integral",integral,np.sum(np.array(modified_w_values)))   
+    # print(f"integral",integral,np.sum(np.array(modified_w_values)))
 
     return modified_w_values
 
