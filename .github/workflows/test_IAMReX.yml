@@ -1,37 +1,67 @@
 name: test_IAMReX
 run-name:  IAMReX/test_IAMReX.py is running by ${{ github.actor }} 🚀
 on:
-  # schedule:
-  #   - cron: "*/5 * * * *"
   push:
     paths:
       - 'Source/**'
+      - 'Tutorials/**'
+      - 'Exec/Make.IAMR'
+      - 'Test_IAMReX/**'
+      - '.github/workflows/test_IAMReX.yml'
+  pull_request:
+    paths:
+      - 'Source/**'
+      - 'Tutorials/**'
+      - 'Exec/Make.IAMR'
+      - 'Test_IAMReX/**'
+      - '.github/workflows/test_IAMReX.yml'
+
+concurrency:
+  group: ${{ github.ref }}-${{ github.head_ref }}-test_IAMReX
+  cancel-in-progress: true
 
 jobs:
   test-IAMReX:
+    # The three cases build with different DIM/MPI settings and so share no
+    # object files. Running them as a matrix turns the total build time into
+    # the slowest single build.
+    name: ${{ matrix.case }}
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        case: [LidDrivenCavity, RSV, DraftingKissingTumbling]
     steps:
       - name: Check out repository
-        uses: actions/checkout@v3
-      - name: List and pwd
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
         run: |
-          ls /home/runner/work
-          echo "------------"
-          ls /home/runner/work/IAMReX
-          echo "------------"
-      - name: Install MPI
-        run: |
-          sudo apt update
-          sudo apt install -y openmpi-bin openmpi-common libopenmpi-dev
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            ccache openmpi-bin openmpi-common libopenmpi-dev
+
       - name: Clone AMReX and AMReX-Hydro repositories
         run: |
-          cd /home/runner/work/IAMReX
+          cd ${{ github.workspace }}/..
           git clone --depth 1 https://github.com/AMReX-Codes/amrex.git
           git clone --depth 1 https://github.com/AMReX-Fluids/AMReX-Hydro.git
-      - name: Run IAMReX tests
+
+      - name: Set up ccache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ccache
+          key: ccache-${{ github.workflow }}-${{ matrix.case }}-git-${{ github.sha }}
+          restore-keys: |
+            ccache-${{ github.workflow }}-${{ matrix.case }}-git-
+
+      - name: Run IAMReX test
+        env:
+          IAMREX_MAKE_FLAGS: USE_CCACHE=TRUE
+          CCACHE_COMPRESS: 1
+          CCACHE_COMPRESSLEVEL: 10
+          CCACHE_MAXSIZE: 300M
         run: |
-          cd /home/runner/work/IAMReX/IAMReX
-          python Test_IAMReX/test_IAMReX.py
-      - name: Finished.
-        run: |
-          echo "Tests completed!"
+          ccache -z
+          python Test_IAMReX/test_IAMReX.py ${{ matrix.case }}
+          ccache -s
