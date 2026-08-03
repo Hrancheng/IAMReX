@@ -176,7 +176,7 @@ and you can delete the remote one on your fork with
 git push <Jane> --delete <branch_name>
 ```
 
-Generally speaking, you want to follow the following rules.
+Generally speaking, you may want to follow the following rules.
 
   * Do not merge your branch for PR into your local `development` branch that tracks IAMReX
     `development` branch.  Otherwise your local `development` branch will diverge from IAMReX
